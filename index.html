@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KXA // ESTUDIO — Indumentaria & Experimento Visual</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            bg: '#FFFFFF',
+                            black: '#0D0D0D',
+                            fuchsia: '#FF007F',
+                            fuchsiaDark: '#D4006A',
+                            silver: '#E5E5E5',
+                            charcoal: '#1A1A1A',
+                            muted: '#737373'
+                        }
+                    },
+                    fontFamily: {
+                        syne: ['Syne', 'sans-serif'],
+                        grotesk: ['Space Grotesk', 'sans-serif'],
+                        sans: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Custom Chrome Metallic Gradient & Sheen Effects */
+        .chrome-text {
+            background: linear-gradient(135deg, #A1A1A1 0%, #FFFFFF 25%, #6E6E6E 50%, #F5F5F5 75%, #4A4A4A 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% auto;
+            animation: chromeShift 6s linear infinite;
+        }
+
+        .chrome-bg {
+            background: linear-gradient(135deg, #D4D4D4 0%, #FFFFFF 20%, #A3A3A3 45%, #E5E5E5 70%, #737373 100%);
+            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.8), 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .chrome-border {
+            border-image: linear-gradient(135deg, #E5E5E5, #737373, #FFFFFF, #404040) 1;
+        }
+
+        .chrome-badge {
+            background: linear-gradient(135deg, #111111 0%, #2A2A2A 50%, #000000 100%);
+            border: 1px solid rgba(255,255,255,0.4);
+            box-shadow: 0 0 10px rgba(255,0,127,0.2);
+        }
+
+        @keyframes chromeShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Marker Slash Highlight */
+        .fuchsia-marker {
+            position: relative;
+            display: inline-block;
+        }
+        .fuchsia-marker::before {
+            content: '';
+            position: absolute;
+            left: -4px;
+            right: -4px;
+            top: 45%;
+            bottom: 5%;
+            background: #FF007F;
+            z-index: -1;
+            transform: rotate(-1.5deg) scaleX(1.02);
+            opacity: 0.85;
+            mix-blend-mode: multiply;
+            border-radius: 2px;
+            clip-path: polygon(0% 15%, 15% 0%, 85% 10%, 100% 0%, 98% 85%, 82% 100%, 10% 90%, 0% 100%);
+        }
+
+        .fuchsia-underline {
+            position: relative;
+        }
+        .fuchsia-underline::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: #FF007F;
+            transform: skewX(-15deg);
+        }
+
+        /* SVG Animated Line Drawing */
+        .draw-path {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            transition: stroke-dashoffset 2.2s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .draw-path.is-visible {
+            stroke-dashoffset: 0;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FFFFFF;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #0D0D0D;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #FF007F;
+        }
+
+        /* Noise Texture Overlay */
+        .bg-noise {
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+        }
+
+        /* Glassmorphism for Drawers & Modals */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
+        }
+
+        /* Pulse glow for notifications */
+        @keyframes glowPulse {
+            0%, 100% { box-shadow: 0 0 15px rgba(255, 0, 127, 0.4); }
+            50% { box-shadow: 0 0 25px rgba(255, 0, 127, 0.8); }
+        }
+        .glow-fuchsia {
+            animation: glowPulse 2.5s infinite;
+        }
+    </style>
+</head>
+<body class="bg-brand-bg text-brand-black font-sans antialiased bg-noise selection:bg-brand-fuchsia selection:text-white overflow-x-hidden">
+
+    <!-- TOP ANNOUNCEMENT BAR (Disruptive Intervention) -->
+    <div class="bg-brand-black text-white text-xs font-grotesk tracking-widest uppercase py-2 px-4 border-b border-zinc-800 flex justify-between items-center overflow-hidden">
+        <div class="flex items-center space-x-3 animate-pulse">
+            <span class="w-2 h-2 rounded-full bg-brand-fuchsia inline-block"></span>
+            <span>CÁPSULA 004 // CROMO & TRAZO — EDICIÓN LIMITADA CERO REPETICIÓN</span>
+        </div>
+        <div class="hidden md:flex items-center space-x-6 text-[10px]">
+            <span>ENVÍOS A TODO EL MUNDO</span>
+            <span class="text-brand-fuchsia">//</span>
+            <span>ATELIER BUENOS AIRES & PARIS</span>
+        </div>
+    </div>
+
+    <!-- STICKY ASYMMETRIC HEADER -->
+    <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-zinc-200 transition-all duration-300" id="main-header">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            
+            <!-- LOGO WITH HAND-DRAWN INTERVENTION -->
+            <a href="#" class="group relative flex items-center">
+                <span class="font-syne text-2xl sm:text-3xl font-extrabold tracking-tighter uppercase text-brand-black">
+                    KXA<span class="text-brand-fuchsia font-sans font-light">//</span>ESTUDIO
+                </span>
+                <!-- SVG Scribble Under Logo -->
+                <svg class="absolute -bottom-2 left-0 w-full h-4 pointer-events-none stroke-brand-fuchsia fill-none" viewBox="0 0 120 15" preserveAspectRatio="none">
+                    <path class="draw-path is-visible" d="M2,8 C35,2 70,14 118,5 C90,12 40,3 10,12" stroke-width="2.5" stroke-linecap="round"/>
+                </svg>
+            </a>
+
+            <!-- NAV LINKS -->
+            <nav class="hidden md:flex items-center space-x-8 font-grotesk text-xs uppercase tracking-wider font-medium">
+                <a href="#catalogo" class="hover:text-brand-fuchsia transition-colors flex items-center space-x-1">
+                    <span>[ Colección ]</span>
+                </a>
+                <a href="#manifiesto" class="hover:text-brand-fuchsia transition-colors flex items-center space-x-1">
+                    <span>[ Manifiesto ]</span>
+                </a>
+                <a href="#lookbook" class="hover:text-brand-fuchsia transition-colors flex items-center space-x-1">
+                    <span>[ Lookbook ]</span>
+                </a>
+                <a href="#contacto" class="hover:text-brand-fuchsia transition-colors flex items-center space-x-1">
+                    <span>[ Contacto ]</span>
+                </a>
+            </nav>
+
+            <!-- ACTION BUTTONS -->
+            <div class="flex items-center space-x-4">
+                <button id="search-btn" class="p-2 hover:text-brand-fuchsia transition-colors text-xs font-grotesk flex items-center space-x-1">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                    <span class="hidden sm:inline uppercase">Buscar</span>
+                </button>
+
+                <!-- CART TRIGGER BUTTON -->
+                <button id="open-cart-btn" class="relative group bg-brand-black text-white px-4 py-2.5 text-xs font-grotesk tracking-wider uppercase flex items-center space-x-3 rounded-none hover:bg-brand-fuchsia transition-all duration-300">
+                    <span>BAG</span>
+                    <span id="cart-count-badge" class="bg-brand-fuchsia text-white group-hover:bg-black text-[10px] font-bold px-1.5 py-0.5 rounded-full min-w-[18px] text-center transition-colors">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION (Editorial Asymmetry, Dynamic Ink Stroke & Chrome Hardware Overlay) -->
+    <section class="relative min-h-[90vh] flex items-center pt-8 pb-16 overflow-hidden border-b border-zinc-200">
+        
+        <!-- Abstract Ink & Chain Background Graphics -->
+        <div class="absolute inset-0 pointer-events-none z-0 opacity-40">
+            <!-- Large Gestural Ink Circle -->
+            <svg class="absolute -top-20 -right-20 w-[500px] h-[500px] text-brand-black" viewBox="0 0 300 300" fill="none">
+                <path class="draw-path" d="M150,30 C220,20 280,80 270,160 C260,240 180,280 100,260 C20,240 10,150 40,80 C70,20 180,10 240,60" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="10 5"/>
+            </svg>
+            <!-- Fuchsia Splatter Shapes -->
+            <svg class="absolute bottom-10 left-10 w-48 h-48 text-brand-fuchsia opacity-70" viewBox="0 0 200 200" fill="currentColor">
+                <path d="M40 80 Q 20 100, 50 120 Q 80 140, 110 110 Q 140 80, 120 40 Q 100 10, 60 30 Z" />
+                <circle cx="160" cy="140" r="8" />
+                <circle cx="180" cy="110" r="4" />
+                <circle cx="30" cy="160" r="6" />
+            </svg>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                
+                <!-- Hero Typography Block (7 Cols) -->
+                <div class="lg:col-span-7 space-y-6">
+                    <div class="inline-flex items-center space-x-2 border border-brand-black px-3 py-1 bg-white">
+                        <span class="w-2 h-2 bg-brand-fuchsia"></span>
+                        <span class="font-grotesk text-xs uppercase tracking-widest font-semibold">COLLECTIONS 2026 / VOL. I</span>
+                    </div>
+
+                    <h1 class="font-syne text-5xl sm:text-7xl lg:text-8xl font-extrabold uppercase leading-none tracking-tighter">
+                        DESORDEN <br>
+                        <span class="fuchsia-marker text-white">ESTRUCTURADO</span><br>
+                        <span class="chrome-text">Y METAL.</span>
+                    </h1>
+
+                    <p class="font-sans text-sm sm:text-base text-zinc-700 max-w-xl leading-relaxed border-l-2 border-brand-black pl-4">
+                        La fusión entre la sastrería minimalista y la intervención gestual a mano alzada. Cada pieza es cortada, ensamblada e intervenida individualmente con pigmentos fucsia y herrajes metálicos cromados.
+                    </p>
+
+                    <!-- CTAs & Interactive Buttons -->
+                    <div class="pt-4 flex flex-wrap gap-4 items-center font-grotesk text-xs tracking-wider uppercase">
+                        <a href="#catalogo" class="bg-brand-black text-white px-8 py-4 hover:bg-brand-fuchsia transition-all duration-300 flex items-center space-x-3 group">
+                            <span>Explorar Catálogo</span>
+                            <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                        </a>
+                        <a href="#manifiesto" class="border border-brand-black px-8 py-4 hover:bg-brand-black hover:text-white transition-all duration-300">
+                            Ver Manifiesto
+                        </a>
+                    </div>
+
+                    <!-- Asymmetric Metadata Badge -->
+                    <div class="pt-8 grid grid-cols-3 gap-4 border-t border-zinc-200 text-xs font-grotesk">
+                        <div>
+                            <span class="block text-zinc-400 text-[10px]">EDICIÓN</span>
+                            <span class="font-bold">CÁPSULA 004</span>
+                        </div>
+                        <div>
+                            <span class="block text-zinc-400 text-[10px]">TÉCNICA</span>
+                            <span class="font-bold">PIGMENTO & CROMO</span>
+                        </div>
+                        <div>
+                            <span class="block text-zinc-400 text-[10px]">PIEZAS</span>
+                            <span class="font-bold text-brand-fuchsia">SERIE LIMITADA</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero Visual & Chrome Frame Block (5 Cols) -->
+                <div class="lg:col-span-5 relative">
+                    
+                    <!-- Main Editorial Image Container -->
+                    <div class="relative z-10 border-2 border-brand-black bg-zinc-100 p-2 transform rotate-1 hover:rotate-0 transition-transform duration-500 shadow-2xl">
+                        <!-- Image Element with Fallback -->
+                        <div class="relative aspect-[3/4] overflow-hidden bg-zinc-900 group">
+                            <img id="hero-img" 
+                                 src="https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=1000&auto=format&fit=crop" 
+                                 alt="Avant-garde Editorial Fashion" 
+                                 class="w-full h-full object-cover object-top filter grayscale contrast-125 group-hover:scale-105 transition-transform duration-700"
+                                 onerror="this.src='https://placehold.co/600x800/111/fff?text=EDITORIAL+LOOK+01'">
+                            
+                            <!-- Overlay Fuchsia Marker Stencil -->
+                            <div class="absolute inset-0 pointer-events-none mix-blend-screen opacity-30 bg-gradient-to-tr from-brand-fuchsia via-transparent to-transparent"></div>
+                            
+                            <!-- Chrome Chain SVG Overlay Motif -->
+                            <div class="absolute top-4 right-4 bg-black/80 backdrop-blur border border-zinc-500 p-3 chrome-badge">
+                                <svg class="w-8 h-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+                                    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+                                </svg>
+                            </div>
+
+                            <!-- Editorial Label Overlay -->
+                            <div class="absolute bottom-3 left-3 bg-white px-3 py-1 font-grotesk text-[10px] uppercase font-bold tracking-widest text-brand-black border border-brand-black">
+                                LOOK #01 // SACO OVERSIZED CROMO
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Decorative Floating Metallic Ring SVG behind -->
+                    <div class="absolute -bottom-8 -left-8 w-40 h-40 z-20 pointer-events-none">
+                        <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-xl">
+                            <defs>
+                                <linearGradient id="chromeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#E5E5E5"/>
+                                    <stop offset="30%" stop-color="#737373"/>
+                                    <stop offset="50%" stop-color="#FFFFFF"/>
+                                    <stop offset="80%" stop-color="#404040"/>
+                                    <stop offset="100%" stop-color="#A3A3A3"/>
+                                </linearGradient>
+                            </defs>
+                            <circle cx="50" cy="50" r="40" fill="none" stroke="url(#chromeGrad)" stroke-width="8" />
+                            <circle cx="50" cy="50" r="40" fill="none" stroke="#000" stroke-width="1" stroke-dasharray="4 2"/>
+                        </svg>
+                    </div>
+
+                    <!-- Hand-drawn Scribble Text Overlay -->
+                    <div class="absolute -top-6 -right-4 z-30 font-syne text-brand-fuchsia text-xs font-extrabold uppercase tracking-widest transform rotate-12 bg-black text-white px-3 py-1 border border-brand-fuchsia">
+                        [ NO INDUSTRIAL ]
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- INTERACTIVE CATALOG & CATEGORY FILTERS SECTION -->
+    <section id="catalogo" class="py-20 border-b border-zinc-200 relative bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Section Header & Filter Navigation -->
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+                <div>
+                    <div class="flex items-center space-x-2 text-brand-fuchsia font-grotesk text-xs uppercase tracking-widest font-bold mb-2">
+                        <span>01 // CATÁLOGO INTERACTIVO</span>
+                    </div>
+                    <h2 class="font-syne text-4xl sm:text-5xl font-extrabold uppercase tracking-tighter">
+                        PIEZAS <span class="chrome-text">DISPONIBLES</span>
+                    </h2>
+                </div>
+
+                <!-- CATEGORY FILTER PILLS -->
+                <div class="flex flex-wrap gap-2 font-grotesk text-xs uppercase tracking-wider" id="filter-container">
+                    <button data-filter="all" class="filter-btn active bg-brand-black text-white px-4 py-2 border border-brand-black transition-all">
+                        Todo [8]
+                    </button>
+                    <button data-filter="sastreria" class="filter-btn bg-white text-brand-black px-4 py-2 border border-zinc-300 hover:border-brand-black transition-all">
+                        Sastrería
+                    </button>
+                    <button data-filter="punto" class="filter-btn bg-white text-brand-black px-4 py-2 border border-zinc-300 hover:border-brand-black transition-all">
+                        Punto & Texturas
+                    </button>
+                    <button data-filter="accesorios" class="filter-btn bg-white text-brand-black px-4 py-2 border border-zinc-300 hover:border-brand-black transition-all">
+                        Accesorios Cromados
+                    </button>
+                    <button data-filter="capsula" class="filter-btn bg-white text-brand-black px-4 py-2 border border-zinc-300 hover:border-brand-black transition-all">
+                        Edición Cápsula
+                    </button>
+                </div>
+            </div>
+
+            <!-- PRODUCT GRID (Asymmetrical Layout & Dynamic Rendering) -->
+            <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Products dynamically rendered via JavaScript -->
+            </div>
+
+        </div>
+    </section>
+
+    <!-- LOOKBOOK & ARTISTIC INTERVENTION GALLERY -->
+    <section id="lookbook" class="py-20 bg-zinc-950 text-white relative overflow-hidden">
+        
+        <!-- Abstract Chrome Background Shapes -->
+        <div class="absolute top-0 right-0 w-96 h-96 bg-brand-fuchsia/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="max-w-3xl mb-16">
+                <span class="text-brand-fuchsia font-grotesk text-xs tracking-widest uppercase font-bold">02 // EXPLORACIÓN VISUAL</span>
+                <h2 class="font-syne text-4xl sm:text-6xl font-extrabold uppercase tracking-tighter mt-2">
+                    GALERÍA DE <span class="chrome-text">PROCESO & TALLER</span>
+                </h2>
+                <p class="font-sans text-zinc-400 text-sm sm:text-base mt-4">
+                    Registros fotográficos del proceso de intervención manual con pintura fucsia, ensamble de argollas de acero inoxidables y confección en taller.
+                </p>
+            </div>
+
+            <!-- Gallery Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                
+                <!-- Gallery Item 1 -->
+                <div class="group relative aspect-[3/4] overflow-hidden border border-zinc-800 bg-zinc-900">
+                    <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=800&auto=format&fit=crop" 
+                         alt="Intervención Textil" 
+                         class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+                         onerror="this.src='https://placehold.co/600x800/222/fff?text=TALLER+01'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-6 flex flex-col justify-end">
+                        <span class="text-brand-fuchsia font-grotesk text-xs uppercase font-bold">REGISTRO #081</span>
+                        <h3 class="font-syne text-lg font-bold">Pigmentado Manual fucsia sobre gabardina de algodón</h3>
+                    </div>
+                </div>
+
+                <!-- Gallery Item 2 -->
+                <div class="group relative aspect-[3/4] overflow-hidden border border-zinc-800 bg-zinc-900 md:mt-12">
+                    <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?q=80&w=800&auto=format&fit=crop" 
+                         alt="Eslabones Cromados" 
+                         class="w-full h-full object-cover filter contrast-125 group-hover:scale-105 transition-all duration-700"
+                         onerror="this.src='https://placehold.co/600x800/222/fff?text=TALLER+02'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-6 flex flex-col justify-end">
+                        <span class="text-brand-fuchsia font-grotesk text-xs uppercase font-bold">REGISTRO #094</span>
+                        <h3 class="font-syne text-lg font-bold">Ensamble de cadenas de acero cromado en cuello</h3>
+                    </div>
+                </div>
+
+                <!-- Gallery Item 3 -->
+                <div class="group relative aspect-[3/4] overflow-hidden border border-zinc-800 bg-zinc-900">
+                    <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=800&auto=format&fit=crop" 
+                         alt="Prueba de Calce" 
+                         class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+                         onerror="this.src='https://placehold.co/600x800/222/fff?text=TALLER+03'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-6 flex flex-col justify-end">
+                        <span class="text-brand-fuchsia font-grotesk text-xs uppercase font-bold">REGISTRO #102</span>
+                        <h3 class="font-syne text-lg font-bold">Prueba final de caída y asimetría de silueta</h3>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- BRAND MANIFESTO SECTION ("SOBRE LA MARCA") -->
+    <section id="manifiesto" class="py-24 border-b border-zinc-200 bg-white relative overflow-hidden">
+        
+        <!-- Animated Scribble Lines in Background -->
+        <svg class="absolute top-1/2 left-0 w-full h-32 pointer-events-none opacity-20 text-brand-black" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path class="draw-path" d="M0,60 Q300,120 600,20 T1200,80" stroke="currentColor" stroke-width="3" fill="none"/>
+        </svg>
+
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16">
+                <span class="text-brand-fuchsia font-grotesk text-xs tracking-widest uppercase font-bold">[ MANIFIESTO KXA ]</span>
+                <h2 class="font-syne text-4xl sm:text-6xl font-extrabold uppercase tracking-tighter mt-3">
+                    RECHAZAMOS LO <span class="fuchsia-marker text-white">GENÉRICO</span>
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6 font-sans text-sm sm:text-base leading-relaxed text-zinc-800">
+                    <p class="font-semibold text-lg font-grotesk text-brand-black">
+                        No fabricamos indumentaria masiva. Diseñamos piezas textiles de carácter escultórico que desafían las convenciones de la moda comercial.
+                    </p>
+                    <p>
+                        Creemos en el trazo espontáneo, en la mancha imprevista y en la frialdad industrial del metal cromado. Cada prenda que sale de nuestro estudio lleva marcas artesanales irrepetibles: un garabato a marcador textil, un tajo asimétrico o una argolla metálica colocada manualmente.
+                    </p>
+                    <p class="text-xs font-grotesk text-zinc-500 border-l-2 border-brand-fuchsia pl-3">
+                        «La perfección es aburrida. Buscamos la sofisticación a través de la tensión visual entre el orden y el accidente.»
+                    </p>
+                </div>
+
+                <div class="border-2 border-brand-black p-8 bg-zinc-50 relative">
+                    <!-- Stamp Overlay -->
+                    <div class="absolute -top-4 -right-4 bg-brand-fuchsia text-white font-syne text-xs uppercase px-4 py-2 font-bold transform rotate-6 border border-black shadow-lg">
+                        100% ARTESANAL
+                    </div>
+
+                    <h3 class="font-syne text-2xl font-bold uppercase mb-4">Nuestros Principios</h3>
+                    <ul class="space-y-4 font-grotesk text-xs uppercase tracking-wider">
+                        <li class="flex items-start space-x-3">
+                            <span class="text-brand-fuchsia font-bold">01/</span>
+                            <span>Producción limitada a menos de 20 unidades por modelo.</span>
+                        </li>
+                        <li class="flex items-start space-x-3">
+                            <span class="text-brand-fuchsia font-bold">02/</span>
+                            <span>Intervención gestual a mano alzada previa al ensamblado.</span>
+                        </li>
+                        <li class="flex items-start space-x-3">
+                            <span class="text-brand-fuchsia font-bold">03/</span>
+                            <span>Herrajes de acero inoxidable cromado y alta durabilidad.</span>
+                        </li>
+                        <li class="flex items-start space-x-3">
+                            <span class="text-brand-fuchsia font-bold">04/</span>
+                            <span>Cero desperdicio textil: reciclaje de sobrantes en accesorios.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER & CONTACT -->
+    <footer id="contacto" class="bg-brand-black text-white pt-20 pb-12 border-t border-zinc-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12 mb-16">
+                
+                <!-- Brand Column -->
+                <div class="md:col-span-5 space-y-6">
+                    <span class="font-syne text-3xl font-extrabold tracking-tighter uppercase text-white block">
+                        KXA<span class="text-brand-fuchsia">//</span>ESTUDIO
+                    </span>
+                    <p class="font-sans text-xs text-zinc-400 max-w-sm leading-relaxed">
+                        Estudio experimental de diseño de vestuario y exploración gráfica contemporánea.
+                    </p>
+                    
+                    <!-- Newsletter Form with Hand-drawn Underline -->
+                    <div class="pt-4">
+                        <label class="block font-grotesk text-xs uppercase text-zinc-300 mb-2">Suscribirse al Radar Secreto</label>
+                        <form id="newsletter-form" class="flex items-center space-x-2">
+                            <input type="email" placeholder="TU@EMAIL.COM" required class="bg-zinc-900 border border-zinc-700 text-white px-4 py-3 text-xs font-grotesk w-full focus:outline-none focus:border-brand-fuchsia">
+                            <button type="submit" class="bg-brand-fuchsia text-white px-6 py-3 font-grotesk text-xs uppercase font-bold hover:bg-white hover:text-black transition-colors">
+                                Unirse
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Navigation Links -->
+                <div class="md:col-span-3 space-y-3 font-grotesk text-xs uppercase tracking-wider">
+                    <h4 class="text-brand-fuchsia font-bold mb-4">Navegación</h4>
+                    <p><a href="#catalogo" class="hover:text-brand-fuchsia transition-colors">Colección Completa</a></p>
+                    <p><a href="#manifiesto" class="hover:text-brand-fuchsia transition-colors">Manifiesto & Taller</a></p>
+                    <p><a href="#lookbook" class="hover:text-brand-fuchsia transition-colors">Registro Visual</a></p>
+                    <p><a href="#" class="hover:text-brand-fuchsia transition-colors">Guía de Talles</a></p>
+                    <p><a href="#" class="hover:text-brand-fuchsia transition-colors">Términos & Envíos</a></p>
+                </div>
+
+                <!-- Contact & Social -->
+                <div class="md:col-span-4 space-y-3 font-grotesk text-xs uppercase tracking-wider">
+                    <h4 class="text-brand-fuchsia font-bold mb-4">Contacto & Redes</h4>
+                    <p class="text-zinc-400">Atelier: San Telmo, Buenos Aires</p>
+                    <p class="text-zinc-400">Email: hola@kxa-estudio.com</p>
+                    <div class="pt-4 flex space-x-4">
+                        <a href="#" class="w-10 h-10 border border-zinc-700 flex items-center justify-center hover:border-brand-fuchsia hover:text-brand-fuchsia transition-colors">IG</a>
+                        <a href="#" class="w-10 h-10 border border-zinc-700 flex items-center justify-center hover:border-brand-fuchsia hover:text-brand-fuchsia transition-colors">TK</a>
+                        <a href="#" class="w-10 h-10 border border-zinc-700 flex items-center justify-center hover:border-brand-fuchsia hover:text-brand-fuchsia transition-colors">PI</a>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Bottom Copyright Bar -->
+            <div class="pt-8 border-t border-zinc-900 flex flex-col sm:flex-row items-center justify-between font-grotesk text-[10px] text-zinc-500">
+                <p>© 2026 KXA ESTUDIO — TODOS LOS DERECHOS RESERVADOS.</p>
+                <p class="mt-2 sm:mt-0">DISEÑO EDITORIAL EXPERIMENTAL</p>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- ================================================================= -->
+    <!-- MODALS & DRAWERS (PRODUCT DETAIL, SHOPPING CART & CHECKOUT)       -->
+    <!-- ================================================================= -->
+
+    <!-- 1. PRODUCT DETAIL MODAL (FICHA TÉCNICA Y COMPRA) -->
+    <div id="product-modal" class="fixed inset-0 z-50 hidden bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white border-2 border-brand-black max-w-4xl w-full relative shadow-2xl my-8 overflow-hidden">
+            
+            <!-- Close Button -->
+            <button id="close-product-modal" class="absolute top-4 right-4 z-20 bg-brand-black text-white w-10 h-10 flex items-center justify-center font-grotesk text-lg hover:bg-brand-fuchsia transition-colors">
+                ✕
+            </button>
+
+            <div class="grid grid-cols-1 md:grid-cols-12" id="modal-product-content">
+                <!-- Content dynamically populated via JS -->
+            </div>
+        </div>
+    </div>
+
+
+    <!-- 2. SLIDE-OVER SHOPPING CART DRAWER -->
+    <div id="cart-drawer" class="fixed inset-0 z-50 hidden">
+        <!-- Backdrop -->
+        <div id="cart-backdrop" class="absolute inset-0 bg-black/60 backdrop-blur-xs transition-opacity"></div>
+        
+        <!-- Drawer Body -->
+        <div class="absolute right-0 top-0 bottom-0 max-w-md w-full bg-white border-l-2 border-brand-black shadow-2xl flex flex-col justify-between z-10 transform transition-transform duration-300">
+            
+            <!-- Drawer Header -->
+            <div class="p-6 border-b border-zinc-200 flex items-center justify-between bg-zinc-50">
+                <div>
+                    <span class="text-brand-fuchsia font-grotesk text-[10px] uppercase font-bold tracking-widest">[ TU BOLSA ]</span>
+                    <h3 class="font-syne text-2xl font-extrabold uppercase">CARRITO DE COMPRAS</h3>
+                </div>
+                <button id="close-cart-btn" class="text-brand-black hover:text-brand-fuchsia text-2xl font-bold font-grotesk">✕</button>
+            </div>
+
+            <!-- Drawer Items Container -->
+            <div id="cart-items-container" class="p-6 overflow-y-auto flex-1 space-y-6">
+                <!-- Dynamic Cart Items Rendered Here -->
+            </div>
+
+            <!-- Drawer Footer / Summary -->
+            <div class="p-6 border-t-2 border-brand-black bg-white space-y-4">
+                <div class="flex justify-between items-center font-grotesk text-xs uppercase">
+                    <span class="text-zinc-500">Envío Estimado</span>
+                    <span class="font-bold">GRATIS</span>
+                </div>
+                <div class="flex justify-between items-center font-syne text-xl font-extrabold uppercase border-t border-zinc-200 pt-3">
+                    <span>TOTAL</span>
+                    <span id="cart-total-price" class="text-brand-fuchsia">$0</span>
+                </div>
+                
+                <button id="proceed-checkout-btn" class="w-full bg-brand-black text-white py-4 font-grotesk text-xs uppercase font-bold tracking-widest hover:bg-brand-fuchsia transition-all flex items-center justify-center space-x-2">
+                    <span>INICIAR PROCESO DE PAGO</span>
+                    <span>→</span>
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- 3. SIMULATED CHECKOUT MODAL -->
+    <div id="checkout-modal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="bg-white border-2 border-brand-black max-w-2xl w-full p-8 relative shadow-2xl max-h-[90vh] overflow-y-auto">
+            
+            <button id="close-checkout-modal" class="absolute top-4 right-4 text-zinc-500 hover:text-black text-xl font-bold font-grotesk">✕</button>
+
+            <!-- Checkout Step 1: Form -->
+            <div id="checkout-step-1">
+                <div class="mb-6">
+                    <span class="text-brand-fuchsia font-grotesk text-xs uppercase font-bold">[ FINALIZAR COMPRA ]</span>
+                    <h3 class="font-syne text-3xl font-extrabold uppercase mt-1">DATOS DE ENVÍO Y PAGO</h3>
+                </div>
+
+                <form id="checkout-form" class="space-y-4 font-grotesk text-xs">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-zinc-600 mb-1">NOMBRE</label>
+                            <input type="text" required class="w-full border border-zinc-300 p-3 focus:outline-none focus:border-brand-black">
+                        </div>
+                        <div>
+                            <label class="block text-zinc-600 mb-1">APELLIDO</label>
+                            <input type="text" required class="w-full border border-zinc-300 p-3 focus:outline-none focus:border-brand-black">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-zinc-600 mb-1">DIRECCIÓN DE ENTREGA</label>
+                        <input type="text" required placeholder="Calle, Número, Piso, Ciudad" class="w-full border border-zinc-300 p-3 focus:outline-none focus:border-brand-black">
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-zinc-600 mb-1">MÉTODO DE PAGO</label>
+                            <select class="w-full border border-zinc-300 p-3 focus:outline-none focus:border-brand-black">
+                                <option>Tarjeta de Crédito / Débito</option>
+                                <option>Mercado Pago</option>
+                                <option>Transferencia Bancaria (-10%)</option>
+                                <option>Cripto (USDT)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-zinc-600 mb-1">CÓDIGO PROMO</label>
+                            <input type="text" placeholder="KXA2026" class="w-full border border-zinc-300 p-3 focus:outline-none focus:border-brand-black">
+                        </div>
+                    </div>
+
+                    <div class="pt-4 border-t border-zinc-200">
+                        <button type="submit" class="w-full bg-brand-fuchsia text-white py-4 font-bold text-xs uppercase tracking-widest hover:bg-black transition-colors">
+                            CONFIRMAR Y PAGAR AHORA
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Checkout Step 2: Confirmation / Receipt -->
+            <div id="checkout-step-2" class="hidden text-center py-8 space-y-6">
+                <!-- Fuchsia Stamp Badge -->
+                <div class="inline-block bg-brand-fuchsia text-white px-6 py-2 font-syne text-sm uppercase font-extrabold transform -rotate-3 border-2 border-black shadow-lg">
+                    ✓ ORDEN CONFIRMADA #KXA-8921
+                </div>
+
+                <h3 class="font-syne text-4xl font-extrabold uppercase tracking-tighter">¡GRACIAS POR TU COMPRA!</h3>
+
+                <p class="font-sans text-sm text-zinc-600 max-w-md mx-auto">
+                    Tu pedido ha sido registrado en nuestro taller. En breve recibirás un correo electrónico con el número de seguimiento de tu paquete de edición limitada.
+                </p>
+
+                <div class="p-4 bg-zinc-50 border border-zinc-200 text-left font-grotesk text-xs space-y-2">
+                    <div class="flex justify-between">
+                        <span class="text-zinc-500">Estado:</span>
+                        <span class="font-bold text-brand-fuchsia">EN PREPARACIÓN ARTESANAL</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-zinc-500">Tiempo estimado:</span>
+                        <span class="font-bold">3 a 5 días hábiles</span>
+                    </div>
+                </div>
+
+                <button id="finish-order-btn" class="bg-brand-black text-white px-8 py-3 font-grotesk text-xs uppercase font-bold hover:bg-brand-fuchsia transition-colors">
+                    VOLVER AL INICIO
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- TOAST NOTIFICATION BOX -->
+    <div id="toast-notification" class="fixed bottom-6 right-6 z-50 hidden bg-brand-black text-white border-2 border-brand-fuchsia p-4 shadow-2xl font-grotesk text-xs max-w-xs flex items-center space-x-3 glow-fuchsia">
+        <span class="w-3 h-3 bg-brand-fuchsia rounded-full animate-ping"></span>
+        <span id="toast-message">Producto agregado correctamente.</span>
+    </div>
+
+
+    <!-- ================================================================= -->
+    <!-- JAVASCRIPT LOGIC (CATALOG DATA, STATE MANAGEMENT & INTERACTION)   -->
+    <!-- ================================================================= -->
+    <script>
+        // -------------------------------------------------------------
+        // 1. PRODUCT DATABASE (6 Avant-Garde Apparel Items)
+        // -------------------------------------------------------------
+        const products = [
+            {
+                id: 'p1',
+                name: 'Saco Oversized Cromo-Stroke',
+                category: 'sastreria',
+                price: 185000,
+                priceFormatted: '$185.000',
+                image: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=800&auto=format&fit=crop',
+                altImage: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=800&auto=format&fit=crop',
+                badge: 'MÁS VENDIDO',
+                badgeColor: 'bg-brand-fuchsia text-white',
+                description: 'Saco de sastrería oversized en lana fría italiana con intervención frontal a brocha de tinta fucsia y herrajes metálicos cromados en solapa.',
+                details: ['Corte asimétrico sinforoso', 'Argollas de acero inoxidables cromadas', 'Forrería de satén estampado', 'Edición de 12 ejemplares'],
+                sizes: ['S/M', 'L/XL'],
+                variants: ['Negro Carbono / Fucsia', 'Monocromo']
+            },
+            {
+                id: 'p2',
+                name: 'Pantallón Cargo Eslabón Metal',
+                category: 'sastreria',
+                price: 142000,
+                priceFormatted: '$142.000',
+                image: 'https://images.unsplash.com/photo-1539109136881-3be0616acf4b?q=80&w=800&auto=format&fit=crop',
+                altImage: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=800&auto=format&fit=crop',
+                badge: 'LIMITADO',
+                badgeColor: 'bg-black text-white border border-white',
+                description: 'Pantalón amplio de gabardina de alta densidad con cadenas laterales desmontables y estampación de garabato artesanal en bolsillo derecho.',
+                details: ['Bolsillos tridimensionales', 'Cadena cromada pulida a mano', 'Ajuste de bota mediante broches', 'Intervención única por prenda'],
+                sizes: ['XS', 'S', 'M', 'L'],
+                variants: ['Negro Mate', 'Blanco Tiza Intervenido']
+            },
+            {
+                id: 'p3',
+                name: 'Sweater Punto Destruido & Fucsia',
+                category: 'punto',
+                price: 118000,
+                priceFormatted: '$118.000',
+                image: 'https://images.unsplash.com/photo-1434389677669-e08b4cac3105?q=80&w=800&auto=format&fit=crop',
+                altImage: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=800&auto=format&fit=crop',
+                badge: 'NUEVO',
+                badgeColor: 'bg-zinc-200 text-black',
+                description: 'Tejido artesanal en hilado de algodón con calados intencionales y baño localizado de pigmento rosa fucsia en el ruedo.',
+                details: ['Textura desgastada a mano', 'Escote deconstruido', 'Hilado 100% orgánico', 'Acabado irregular'],
+                sizes: ['Único (Oversized)'],
+                variants: ['Crudo / Fucsia']
+            },
+            {
+                id: 'p4',
+                name: 'Arnés Cromado Eslabón Doble',
+                category: 'accesorios',
+                price: 68000,
+                priceFormatted: '$68.000',
+                image: 'https://images.unsplash.com/photo-1611591475178-024f2f0a1d41?q=80&w=800&auto=format&fit=crop',
+                altImage: 'https://images.unsplash.com/photo-1539109136881-3be0616acf4b?q=80&w=800&auto=format&fit=crop',
+                badge: 'METAL CROMADO',
+                badgeColor: 'bg-brand-black text-white border border-brand-fuchsia',
+                description: 'Pieza de joyería corporal confeccionada en eslabones de acero cromado con grabado láser del logotipo de la marca.',
+                details: ['Resistente al agua y corrosión', 'Regulable mediante mosquetones', 'Acabado espejo cromado', 'Diseño unisex'],
+                sizes: ['Regulable'],
+                variants: ['Plata Cromada']
+            },
+            {
+                id: 'p5',
+                name: 'Vestido Asimétrico Mancha Tinta',
+                category: 'capsula',
+                price: 165000,
+                priceFormatted: '$165.000',
+                image: 'https://images.unsplash.com/photo-1566174053879-31528523f8ae?q=80&w=800&auto=format&fit=crop',
+                altImage: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=800&auto=format&fit=crop',
+                badge: 'CÁPSULA 004',
+                badgeColor: 'bg-brand-fuchsia text-white',
+                description: 'Vestido fluido drapeado en poplín textil blanco intervenido con salpicaduras de tinta china negra y trazo fucsia.',
+                details: ['Caída asimétrica con tajo lateral', 'Espalda descubierta con cadenas', 'Cierre invisible posterior', 'Pieza numerada a mano'],
+                sizes: ['S', 'M', 'L'],
+                variants: ['Blanco Intervenido']
+            },
+            {
+                id: 'p6',
+                name: 'Gorro Beanie Garabato & Argolla',
+                category: 'accesorios',
+                price: 42000,
+                priceFormatted: '$42.000',
+                image: 'https://images.unsplash.com/photo-1576871337622-98d48d1cf531?q=80&w=800&auto=format&fit=crop',
+                altImage: 'https://images.unsplash.com/photo-1434389677669-e08b4cac3105?q=80&w=800&auto=format&fit=crop',
+                badge: 'ACCESORIO',
+                badgeColor: 'bg-zinc-800 text-white',
+                description: 'Beanie de lana acrílica acanalada con perforación e inserción de argolla cromada en el doblot.',
+                details: ['Tejido elástico de alto confort', 'Argolla de acero inoxidable de 30mm', 'Etiqueta de tela cosida a mano', 'Edición urbana'],
+                sizes: ['Talle Único'],
+                variants: ['Negro Intenso']
+            }
+        ];
+
+        // -------------------------------------------------------------
+        // 2. GLOBAL APP STATE
+        // -------------------------------------------------------------
+        let cartState = [];
+        let activeFilter = 'all';
+
+        // -------------------------------------------------------------
+        // 3. INITIALIZATION & RENDERERS
+        // -------------------------------------------------------------
+        window.addEventListener('DOMContentLoaded', () => {
+            renderCatalog();
+            initIntersectionObservers();
+            setupEventListeners();
+        });
+
+        // Render Catalog Grid Products
+        function renderCatalog() {
+            const gridContainer = document.getElementById('product-grid');
+            gridContainer.innerHTML = '';
+
+            const filteredProducts = activeFilter === 'all' 
+                ? products 
+                : products.filter(p => p.category === activeFilter);
+
+            filteredProducts.forEach((product, idx) => {
+                const card = document.createElement('div');
+                card.className = 'product-card group relative bg-white border border-zinc-200 p-3 hover:border-brand-black transition-all duration-300 flex flex-col justify-between';
+                
+                card.innerHTML = `
+                    <div class="relative overflow-hidden aspect-[3/4] bg-zinc-100 cursor-pointer" onclick="openProductModal('${product.id}')">
+                        <img src="${product.image}" 
+                             alt="${product.name}" 
+                             class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500"
+                             onerror="this.src='https://placehold.co/600x800/111/fff?text=${encodeURIComponent(product.name)}'">
+                        
+                        <!-- Badge Overlay -->
+                        <span class="absolute top-3 left-3 font-grotesk text-[10px] font-bold uppercase tracking-wider px-2 py-1 ${product.badgeColor}">
+                            ${product.badge}
+                        </span>
+
+                        <!-- Quick View Hover Overlay -->
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span class="bg-white text-brand-black font-grotesk text-xs uppercase font-bold px-4 py-2 border border-black transform translate-y-2 group-hover:translate-y-0 transition-transform">
+                                Ver Ficha [+]
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="pt-4 space-y-2">
+                        <div class="flex justify-between items-start">
+                            <h3 class="font-syne text-sm font-bold uppercase cursor-pointer hover:text-brand-fuchsia transition-colors" onclick="openProductModal('${product.id}')">
+                                ${product.name}
+                            </h3>
+                            <span class="font-grotesk text-xs font-bold text-brand-fuchsia">${product.priceFormatted}</span>
+                        </div>
+                        <p class="font-sans text-[11px] text-zinc-500 line-clamp-1">${product.description}</p>
+                        
+                        <div class="pt-2 flex items-center justify-between border-t border-zinc-100">
+                            <span class="font-grotesk text-[10px] text-zinc-400 uppercase">${product.sizes.join(' / ')}</span>
+                            <button onclick="quickAddToCart('${product.id}')" class="text-xs font-grotesk uppercase font-bold text-brand-black hover:text-brand-fuchsia transition-colors flex items-center space-x-1">
+                                <span>+ Bag</span>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                gridContainer.appendChild(card);
+            });
+        }
+
+        // Filter button clicks
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                document.querySelectorAll('.filter-btn').forEach(b => {
+                    b.classList.remove('bg-brand-black', 'text-white');
+                    b.classList.add('bg-white', 'text-brand-black');
+                });
+                e.target.classList.remove('bg-white', 'text-brand-black');
+                e.target.classList.add('bg-brand-black', 'text-white');
+
+                activeFilter = e.target.getAttribute('data-filter');
+                renderCatalog();
+            });
+        });
+
+        // -------------------------------------------------------------
+        // 4. PRODUCT MODAL LOGIC (FICHA INDIVIDUAL DE PRODUCTO)
+        // -------------------------------------------------------------
+        function openProductModal(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            const modalContent = document.getElementById('modal-product-content');
+            modalContent.innerHTML = `
+                <!-- Gallery Col -->
+                <div class="md:col-span-6 bg-zinc-100 p-6 flex flex-col justify-between relative border-b md:border-b-0 md:border-r border-zinc-200">
+                    <div class="aspect-[3/4] overflow-hidden relative border border-zinc-300">
+                        <img id="modal-main-img" src="${product.image}" alt="${product.name}" class="w-full h-full object-cover">
+                    </div>
+                    <!-- Gallery Thumbnails -->
+                    <div class="flex space-x-3 mt-4">
+                        <button onclick="document.getElementById('modal-main-img').src='${product.image}'" class="w-16 h-20 border border-brand-black overflow-hidden">
+                            <img src="${product.image}" class="w-full h-full object-cover">
+                        </button>
+                        <button onclick="document.getElementById('modal-main-img').src='${product.altImage}'" class="w-16 h-20 border border-zinc-300 overflow-hidden hover:border-black">
+                            <img src="${product.altImage}" class="w-full h-full object-cover">
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product Details Col -->
+                <div class="md:col-span-6 p-8 flex flex-col justify-between space-y-6">
+                    <div>
+                        <span class="text-brand-fuchsia font-grotesk text-xs uppercase font-bold">${product.badge}</span>
+                        <h2 class="font-syne text-3xl font-extrabold uppercase mt-1">${product.name}</h2>
+                        <span class="font-grotesk text-xl font-bold text-brand-black block mt-2">${product.priceFormatted}</span>
+
+                        <p class="font-sans text-xs text-zinc-600 mt-4 leading-relaxed">${product.description}</p>
+
+                        <!-- Variants Selector -->
+                        <div class="mt-6">
+                            <label class="block font-grotesk text-xs uppercase font-bold text-zinc-500 mb-2">Variante / Acabado</label>
+                            <div class="flex flex-wrap gap-2">
+                                ${product.variants.map((v, i) => `
+                                    <button class="variant-opt border border-brand-black px-3 py-1.5 font-grotesk text-xs ${i === 0 ? 'bg-brand-black text-white' : 'bg-white text-black'}">
+                                        ${v}
+                                    </button>
+                                `).join('')}
+                            </div>
+                        </div>
+
+                        <!-- Sizes Selector -->
+                        <div class="mt-6">
+                            <label class="block font-grotesk text-xs uppercase font-bold text-zinc-500 mb-2">Seleccionar Talle</label>
+                            <div class="flex flex-wrap gap-2" id="modal-size-container">
+                                ${product.sizes.map((s, i) => `
+                                    <button onclick="selectModalSize(this)" class="size-opt border border-zinc-300 px-4 py-2 font-grotesk text-xs hover:border-black ${i === 0 ? 'border-brand-fuchsia bg-brand-fuchsia text-white font-bold' : ''}">
+                                        ${s}
+                                    </button>
+                                `).join('')}
+                            </div>
+                        </div>
+
+                        <!-- Technical Specs -->
+                        <div class="mt-6 border-t border-zinc-200 pt-4">
+                            <h4 class="font-grotesk text-xs font-bold uppercase mb-2">Detalles de Confección:</h4>
+                            <ul class="list-disc list-inside font-sans text-xs text-zinc-500 space-y-1">
+                                ${product.details.map(d => `<li>${d}</li>`).join('')}
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Action Button -->
+                    <button onclick="addModalItemToCart('${product.id}')" class="w-full bg-brand-black text-white py-4 font-grotesk text-xs uppercase font-bold tracking-widest hover:bg-brand-fuchsia transition-colors flex items-center justify-center space-x-2">
+                        <span>Agregar al Carrito de Compras</span>
+                        <span>—</span>
+                        <span>${product.priceFormatted}</span>
+                    </button>
+                </div>
+            `;
+
+            document.getElementById('product-modal').classList.remove('hidden');
+        }
+
+        function selectModalSize(btn) {
+            document.querySelectorAll('#modal-size-container .size-opt').forEach(b => {
+                b.classList.remove('border-brand-fuchsia', 'bg-brand-fuchsia', 'text-white', 'font-bold');
+                b.classList.add('border-zinc-300', 'text-black');
+            });
+            btn.classList.add('border-brand-fuchsia', 'bg-brand-fuchsia', 'text-white', 'font-bold');
+        }
+
+        document.getElementById('close-product-modal').addEventListener('click', () => {
+            document.getElementById('product-modal').classList.add('hidden');
+        });
+
+        // -------------------------------------------------------------
+        // 5. SHOPPING CART SYSTEM LOGIC
+        // -------------------------------------------------------------
+        function quickAddToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+            addToCart(product, product.sizes[0]);
+        }
+
+        function addModalItemToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            const selectedSizeBtn = document.querySelector('#modal-size-container .bg-brand-fuchsia');
+            const selectedSize = selectedSizeBtn ? selectedSizeBtn.innerText.trim() : product.sizes[0];
+
+            addToCart(product, selectedSize);
+            document.getElementById('product-modal').classList.add('hidden');
+        }
+
+        function addToCart(product, size) {
+            const existingItem = cartState.find(item => item.id === product.id && item.size === size);
+
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cartState.push({
+                    id: product.id,
+                    name: product.name,
+                    price: product.price,
+                    image: product.image,
+                    size: size,
+                    quantity: 1
+                });
+            }
+
+            updateCartUI();
+            showToast(`"${product.name}" agregado a tu bolsa.`);
+            openCartDrawer();
+        }
+
+        function updateCartUI() {
+            const container = document.getElementById('cart-items-container');
+            const countBadge = document.getElementById('cart-count-badge');
+            const totalPriceEl = document.getElementById('cart-total-price');
+
+            // Total Count
+            const totalCount = cartState.reduce((sum, item) => sum + item.quantity, 0);
+            countBadge.innerText = totalCount;
+
+            // Total Price
+            const totalPrice = cartState.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            totalPriceEl.innerText = `$${totalPrice.toLocaleString('es-AR')}`;
+
+            if (cartState.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-12 text-zinc-400 space-y-3 font-grotesk text-xs">
+                        <p class="uppercase">[ Tu bolsa está vacía ]</p>
+                        <p>Explora el catálogo e intervení tu guardarropa.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = '';
+            cartState.forEach((item, index) => {
+                const itemEl = document.createElement('div');
+                itemEl.className = 'flex items-center space-x-4 border-b border-zinc-200 pb-4';
+                itemEl.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}" class="w-16 h-20 object-cover border border-zinc-200">
+                    <div class="flex-1 space-y-1">
+                        <h4 class="font-syne text-xs font-bold uppercase">${item.name}</h4>
+                        <p class="font-grotesk text-[10px] text-zinc-500">Talle: <span class="font-bold text-black">${item.size}</span></p>
+                        <p class="font-grotesk text-xs font-bold text-brand-fuchsia">$${(item.price * item.quantity).toLocaleString('es-AR')}</p>
+
+                        <!-- Quantity Controls -->
+                        <div class="flex items-center space-x-2 pt-1">
+                            <button onclick="changeQuantity(${index}, -1)" class="w-5 h-5 border border-zinc-300 font-bold flex items-center justify-center hover:bg-black hover:text-white">-</button>
+                            <span class="font-grotesk text-xs font-bold">${item.quantity}</span>
+                            <button onclick="changeQuantity(${index}, 1)" class="w-5 h-5 border border-zinc-300 font-bold flex items-center justify-center hover:bg-black hover:text-white">+</button>
+                        </div>
+                    </div>
+                    <button onclick="removeCartItem(${index})" class="text-zinc-400 hover:text-brand-fuchsia text-sm font-bold">✕</button>
+                `;
+                container.appendChild(itemEl);
+            });
+        }
+
+        function changeQuantity(index, delta) {
+            cartState[index].quantity += delta;
+            if (cartState[index].quantity <= 0) {
+                cartState.splice(index, 1);
+            }
+            updateCartUI();
+        }
+
+        function removeCartItem(index) {
+            cartState.splice(index, 1);
+            updateCartUI();
+        }
+
+        // Cart Drawer Open/Close Events
+        const cartDrawer = document.getElementById('cart-drawer');
+        const openCartBtn = document.getElementById('open-cart-btn');
+        const closeCartBtn = document.getElementById('close-cart-btn');
+        const cartBackdrop = document.getElementById('cart-backdrop');
+
+        function openCartDrawer() {
+            cartDrawer.classList.remove('hidden');
+        }
+        function closeCartDrawer() {
+            cartDrawer.classList.add('hidden');
+        }
+
+        openCartBtn.addEventListener('click', openCartDrawer);
+        closeCartBtn.addEventListener('click', closeCartDrawer);
+        cartBackdrop.addEventListener('click', closeCartDrawer);
+
+        // -------------------------------------------------------------
+        // 6. CHECKOUT FLOW LOGIC
+        // -------------------------------------------------------------
+        const checkoutModal = document.getElementById('checkout-modal');
+        const proceedCheckoutBtn = document.getElementById('proceed-checkout-btn');
+        const closeCheckoutBtn = document.getElementById('close-checkout-modal');
+        const checkoutForm = document.getElementById('checkout-form');
+        const checkoutStep1 = document.getElementById('checkout-step-1');
+        const checkoutStep2 = document.getElementById('checkout-step-2');
+        const finishOrderBtn = document.getElementById('finish-order-btn');
+
+        proceedCheckoutBtn.addEventListener('click', () => {
+            if (cartState.length === 0) {
+                showToast("Tu bolsa está vacía. Selecciona un producto primero.");
+                return;
+            }
+            closeCartDrawer();
+            checkoutStep1.classList.remove('hidden');
+            checkoutStep2.classList.add('hidden');
+            checkoutModal.classList.remove('hidden');
+        });
+
+        closeCheckoutBtn.addEventListener('click', () => {
+            checkoutModal.classList.add('hidden');
+        });
+
+        checkoutForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            checkoutStep1.classList.add('hidden');
+            checkoutStep2.classList.remove('hidden');
+            cartState = [];
+            updateCartUI();
+        });
+
+        finishOrderBtn.addEventListener('click', () => {
+            checkoutModal.classList.add('hidden');
+        });
+
+        // -------------------------------------------------------------
+        // 7. INTERSECTION OBSERVER FOR SVG STROKE ANIMATIONS
+        // -------------------------------------------------------------
+        function initIntersectionObservers() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            document.querySelectorAll('.draw-path').forEach(path => {
+                observer.observe(path);
+            });
+        }
+
+        // -------------------------------------------------------------
+        // 8. TOAST NOTIFICATION UTILITY
+        // -------------------------------------------------------------
+        function showToast(msg) {
+            const toast = document.getElementById('toast-notification');
+            const msgEl = document.getElementById('toast-message');
+            msgEl.innerText = msg;
+
+            toast.classList.remove('hidden');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 3000);
+        }
+
+        // Newsletter Handler
+        document.getElementById('newsletter-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            showToast("Te has suscrito exitosamente a la lista VIP.");
+            e.target.reset();
+        });
+
+        function setupEventListeners() {
+            // Smooth Scroll for Navigation Anchors
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+        }
+    </script>
+</body>
+</html>
